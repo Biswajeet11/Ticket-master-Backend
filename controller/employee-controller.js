@@ -12,27 +12,21 @@ employee.get = (req, res) => {
 }
 
 employee.post = (req, res) => {
-	let employeeData = new Employees({
-		name: req.body.name
-	})
-	try {
-		employeeData.save()
-			.then((employee) => {
-				res.json(employee)
-			})
-	}
-	catch (err) {
-		res.send(err)
-	}
+	const body = req.body
+	const employeeData = new Employees(body)
+	employeeData.save()
+		.then((employee) => {
+			res.json(employee)
+		})
+		.catch(err => res.send(err))
+
 }
 
 employee.put = (req, res) => {
 	try {
 		let apiId = req.params.id
 		const employeeData = Employees.findByIdAndUpdate(apiId,
-			{
-				name: req.body.name,
-			}, { runValidators: true })
+			req.body, { runValidators: true })
 		if (employeeData) {
 			res.json(Object.assign(employeeData, req.body))
 		}

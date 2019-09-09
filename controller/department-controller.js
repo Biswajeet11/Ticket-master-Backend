@@ -14,9 +14,7 @@ department.get = (req, res) => {
 
 department.post = async (req, res) => {
 
-	let departmentData = new Departments({
-		name: req.body.name
-	})
+	let departmentData = new Departments(req.body)
 	try {
 		await departmentData.save()
 			.then((department) => {
