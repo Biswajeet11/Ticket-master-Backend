@@ -24,7 +24,7 @@ const ticketsSchema = new Schema({
     },
     isResolved: {
         type: Boolean,
-        required: true,
+        default: true,
     },
     code: {
         type: String,
