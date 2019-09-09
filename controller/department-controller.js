@@ -2,16 +2,18 @@ const express = require('express')
 const router = express.Router()
 const Departments = require('../model/departments')
 
-router.get('/', (req, res) => {
+let department = {};
+
+department.get = (req, res) => {
 	Departments.find()
 		.then((department) => {
 			res.json(department)
 		})
 		.catch(err => console.log(err))
-})
+}
 
-router.post('/', async (req, res) => {
-	
+department.post = async (req, res) => {
+
 	let departmentData = new Departments({
 		name: req.body.name
 	})
@@ -24,9 +26,9 @@ router.post('/', async (req, res) => {
 	catch (err) {
 		res.send(err)
 	}
-})
+}
 
-router.put('/:id', async (req, res) => {
+department.put = async (req, res) => {
 
 	try {
 		const apiId = req.params.id
@@ -44,9 +46,9 @@ router.put('/:id', async (req, res) => {
 	catch (err) {
 		res.send(err)
 	}
-})
+}
 
-router.delete('/:id', async (req, res) => {
+department.delete = async (req, res) => {
 	const apiId = req.params.id
 	const departmentData = await Departments.findByIdAndRemove(apiId)
 	if (departmentData) {
@@ -55,6 +57,6 @@ router.delete('/:id', async (req, res) => {
 	else {
 		res.status(404).send('uri cannot be found')
 	}
-})
+}
 
-module.exports = { departmentController: router }
+module.exports = { departmentController: department }

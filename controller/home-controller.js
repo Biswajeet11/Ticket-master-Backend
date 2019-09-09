@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-	res.send('welcome..')
-})
+let home = {};
 
-module.exports = {
-	homeController: router
+home.get = (req, res) => {
+	res.send('welcome..')
 }
+
+module.exports = { homeController: home };

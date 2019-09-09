@@ -2,14 +2,16 @@ const express = require('express')
 const router = express.Router()
 const Employees = require('../model/employees')
 
-router.get('/', (req, res) => {
+let employee = {};
+
+employee.get = (req, res) => {
 	Employees.find()
 		.then((employee) => {
 			res.json(employee)
 		})
-})
+}
 
-router.post('/', (req, res) => {
+employee.post = (req, res) => {
 	let employeeData = new Employees({
 		name: req.body.name
 	})
@@ -22,9 +24,9 @@ router.post('/', (req, res) => {
 	catch (err) {
 		res.send(err)
 	}
-})
+}
 
-router.put('/:id', (req, res) => {
+employee.put = (req, res) => {
 	try {
 		let apiId = req.params.id
 		const employeeData = Employees.findByIdAndUpdate(apiId,
@@ -41,9 +43,9 @@ router.put('/:id', (req, res) => {
 	catch (err) {
 		res.send(err)
 	}
-})
+}
 
-router.delete('/:id', (req, res) => {
+employee.delete = (req, res) => {
 	let apiId = req.params.id
 	const employeeData = Employees.findByIdAndRemove(apiId)
 	if (employeeData) {
@@ -52,6 +54,6 @@ router.delete('/:id', (req, res) => {
 	else {
 		res.status(404).send('uri not found')
 	}
-})
+}
 
-module.exports = { employeeController: router }
+module.exports = { employeeController: employee }

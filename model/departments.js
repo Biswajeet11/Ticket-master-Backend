@@ -8,7 +8,7 @@ const departmentSchema = new Schema({
 		required: true,
 		validate: {
 			validator: function (name) {
-				return name.length() >= 2
+				return name.length >= 2
 			},
 			msg: function () {
 				return 'department name less than 2 characters'
